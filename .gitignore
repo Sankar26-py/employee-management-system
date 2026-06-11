@@ -32,14 +32,17 @@ Thumbs.db
 
 # Coverage
 .coverage
+coverage.xml
 htmlcov/
 
-# Migrations (optional)
-# */migrations/*
-# !*/migrations/__init__.py
+# Test cache
+.cache/
 
 # mypy
 .mypy_cache/
+
+# Ruff
+.ruff_cache/
 
 # Build
 dist/
@@ -51,3 +54,9 @@ build/
 
 # Temporary files
 *.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Windows
+desktop.ini
