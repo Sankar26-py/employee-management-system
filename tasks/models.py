@@ -1,7 +1,7 @@
 from django.db import models
 from employees.models import Employee
 from projects.models import Project
-
+from .managers import TaskManager
 
 class Task(models.Model):
 
@@ -18,6 +18,8 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    objects = TaskManager()
+    
     class Meta:
         ordering = ["-created_at"]
 

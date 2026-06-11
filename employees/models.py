@@ -1,5 +1,6 @@
 from django.db import models
 from .managers import EmployeeQuerySet
+from .managers import EmployeeManager
 
 
 class Department(models.Model):
@@ -20,7 +21,7 @@ class Employee(models.Model):
     GENDER_CHOICES = (("male", "Male"),("female", "Female"),)
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15,blank=True)
+    phone = models.CharField(max_length=25,blank=True)
     gender = models.CharField(max_length=20,choices=GENDER_CHOICES)
     salary = models.DecimalField(max_digits=10,decimal_places=2)
     joining_date = models.DateField()
@@ -29,7 +30,7 @@ class Employee(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = EmployeeQuerySet.as_manager()
+    objects = EmployeeManager()
 
     class Meta:
         ordering = ["-id"]

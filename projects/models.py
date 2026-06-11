@@ -1,5 +1,6 @@
 from django.db import models
 from employees.models import Employee
+from .managers import ProjectManager
 
 
 class Project(models.Model):
@@ -15,6 +16,8 @@ class Project(models.Model):
     employees = models.ManyToManyField(Employee,through="EmployeeProject",related_name="projects")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    objects = ProjectManager()
+    
     class Meta:
         ordering = ["name"]
 
@@ -28,6 +31,7 @@ class EmployeeProject(models.Model):
     hours_allocated = models.PositiveIntegerField()
     rating = models.FloatField(default=0)
     assigned_date = models.DateField(auto_now_add=True)
+    
 
     class Meta:
         unique_together = ("employee","project")
