@@ -1,59 +1,85 @@
 from employees.models import Employee, Department
 from tasks.models import Task
+from datetime import date
+from faker import Faker #type:ignore
+import random
+fake = Faker()
+def run():
 
 
-# 14. update()
-# Updates matching rows directly in DB.
-Employee.objects.filter(
-    salary__lt=50000
-).update(
-    salary=50000
-)
+    print("\n========== WRITE QUERIES ==========")
 
+    # 14. update() Bulk update of queryset.
+    # Updates matching employee records directly in the database.
+    print("\n14. update()")
 
-# 15. delete()
-# Deletes matching rows immediately.
-Task.objects.filter(
-    status="completed"
-).delete()
+    updated_count = Employee.objects.filter(salary__lt=50000).update(salary=50000)
 
+    print(f"Updated Records: {updated_count}")
 
-# 16. create()
-# Creates and saves a new employee.
-Employee.objects.create(
-    name="Test User",
-    email="test@test.com",
-    gender="male",
-    salary=75000,
-    department=Department.objects.first()
-)
+    # 15. delete() Deletes objects in the queryset.
+    # Deletes all completed tasks from the database.
+    print("\n15. delete()")
 
+    deleted_count, _ = Task.objects.filter(status="completed").delete()
 
-# 17. bulk_create()
-employees = [
-    Employee(
-        name="User1",
-        email="user1@test.com",
-        gender="male",
-        salary=60000,
-        department=Department.objects.first()
-    ),
-    Employee(
-        name="User2",
-        email="user2@test.com",
-        gender="female",
-        salary=65000,
+    print(f"Deleted Records: {deleted_count}")
+
+    # 16. create() Creates and saves a new object
+    # Creates and saves a new employee record.
+    print("\n16. create()")
+    
+    employee = Employee.objects.create(
+        name=fake.name(),
+        email=fake.unique.email(),
+        phone=fake.phone_number(),
+        gender=random.choice(["male", "female"]),
+        salary=random.randint(30000,200000),
+        joining_date=fake.date_between(start_date="-5y",end_date="today"),
         department=Department.objects.first()
     )
-]
 
-Employee.objects.bulk_create(
-    employees
-)
+    print(f"Created Employee: {employee.name}")
 
+    # 17. bulk_create() Creates multiple objects at once.
+    # Creates multiple employee records in a single database query.
+    print("\n17. bulk_create()")
 
-# 18. in_bulk()
-# Returns dictionary keyed by id.
-Employee.objects.in_bulk(
-    [1, 2, 3]
-)
+    employees = [
+        Employee(
+            name=fake.name(),
+            email=fake.unique.email(),
+            phone=fake.phone_number(),
+            gender=random.choice(["male", "female"]),
+            salary=random.randint(30000,200000),
+            joining_date=fake.date_between(start_date="-5y",end_date="today"),
+            department=Department.objects.first()
+            ),
+        Employee(
+            name=fake.name(),
+            email=fake.unique.email(),
+            phone=fake.phone_number(),
+            gender=random.choice(["male", "female"]),
+            salary=random.randint(30000,200000),
+            joining_date=fake.date_between(start_date="-5y",end_date="today"),
+            department=Department.objects.first()
+        )
+    ]
+
+    Employee.objects.bulk_create(employees)
+
+    print("Created 2 Employees")
+
+    # 18. in_bulk() Returns a dictionary keyed by IDs.
+    # Returns a dictionary of employees keyed by their primary key.
+    print("\n18. in_bulk()")
+
+    employees_dict = Employee.objects.in_bulk([1, 2, 3])
+
+    for emp_id, employee in employees_dict.items():
+
+        print(
+            emp_id,
+            employee.name
+        )
+
