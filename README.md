@@ -1,6 +1,25 @@
 # Employee Management System
 
-A production-style Django REST Framework project demonstrating advanced PostgreSQL ORM queries, custom managers, API development, query optimization, and automated testing.
+A production-style Django REST Framework project built with PostgreSQL that demonstrates advanced Django ORM concepts, query optimization techniques, REST API development, automated testing, and runnable ORM demonstrations.
+
+---
+
+## Overview
+
+This project was built to showcase real-world Django development skills expected from a Python Django developer with 3+ years of experience.
+
+The project includes:
+
+* Employee Management System
+* PostgreSQL Integration
+* Django REST Framework APIs
+* Advanced ORM Examples
+* Query Optimization Techniques
+* Custom Managers & QuerySets
+* Automated Testing with Pytest
+* FactoryBoy Test Data Generation
+* Coverage Reporting
+* Runnable ORM Demonstrations
 
 ---
 
@@ -19,251 +38,144 @@ A production-style Django REST Framework project demonstrating advanced PostgreS
 
 ---
 
-## Features
+## Core Modules
 
-### Employee Management
+### Employees
 
-* Departments
-* Employees
-* Projects
-* Tasks
-* Employee Project Assignment
+* Employee CRUD Operations
+* Employee Statistics
+* Salary Analytics
+* Department Assignment
 
-### Advanced Django ORM
+### Departments
 
-This project contains 57+ ORM examples covering:
+* Department Management
+* Employee Count Tracking
+* Budget Management
 
+### Projects
+
+* Project Tracking
+* Employee Assignment
+* Project Analytics
+
+### Tasks
+
+* Task Assignment
+* Pending Task Tracking
+* Completion Monitoring
+
+---
+
+## Advanced Django ORM
+
+This project contains 57+ ORM examples organized by topic.
+
+### Basic Queries
+
+* all()
 * filter()
 * exclude()
 * get()
+* order_by()
 * values()
 * values_list()
-* annotate()
+* distinct()
+* exists()
+
+### Aggregation & Annotation
+
 * aggregate()
-* select_related()
-* prefetch_related()
+* annotate()
+* Count()
+* Avg()
+* Max()
+* Min()
+* Sum()
+
+### Advanced Queries
+
 * Q Objects
 * F Expressions
 * Case / When
 * Subquery
-* Exists
 * OuterRef
-* Window Functions
-* Rank()
-* RowNumber()
+* Exists
+
+### Query Optimization
+
+* select_related()
+* prefetch_related()
+* only()
+* defer()
+
+### Bulk Operations
+
 * bulk_create()
 * bulk_update()
-* select_for_update()
-* explain()
+* update()
+* delete()
 
 ### PostgreSQL Features
 
-* Row Locking
-* Query Planning
+* select_for_update()
+* explain()
 * Window Functions
-* Aggregations
+* Ranking Queries
+
+### Date Queries
+
+* year lookup
+* month lookup
+* range lookup
+* date filtering
+
+---
+
+## Runnable ORM Demonstrations
+
+All ORM examples can be executed directly from the terminal.
+
+Run:
+
+```bash
+python manage.py run_orm_demo
+```
+
+This command executes all ORM demonstration modules and displays results using sample PostgreSQL data.
+
+Example Output:
+
+```text
+========== BASIC ORM QUERIES ==========
+
+1. all()
+2. filter()
+3. exclude()
+
+========== ADVANCED ORM QUERIES ==========
+
+Q Objects
+Subquery
+Exists
+
+========== WINDOW FUNCTIONS ==========
+
+Salary Rank
+Department Rank
+```
+
+---
+
+## Testing
+
+The project includes automated tests for:
+
+* Models
+* Custom Managers
+* APIs
+* ORM Queries
 * Query Optimization
-
-### Testing
-
-* Model Tests
-* Manager Tests
-* API Tests
-* Query Optimization Tests
-* FactoryBoy Fixtures
-* Coverage Reports
-
----
-
-## Project Structure
-
-```text
-employee-management-system/
-
-├── employees/
-│   ├── models.py
-│   ├── managers.py
-│   ├── serializers.py
-│   ├── views.py
-│   ├── urls.py
-│   ├── orm_examples/
-│   └── tests/
-│
-├── projects/
-│
-├── tasks/
-│
-├── scripts/
-│   └── seed_data.py
-│
-├── requirements.txt
-├── pytest.ini
-├── README.md
-├── .gitignore
-├── .env
-│
-└── manage.py
-```
-
----
-
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/Sankar26-py/employee-management-system.git
-
-cd employee-management-system
-```
-
-### Create Virtual Environment
-
-Windows
-
-```bash
-python -m venv env
-
-env\Scripts\activate
-```
-
-Linux / Mac
-
-```bash
-python3 -m venv env
-
-source env/bin/activate
-```
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-DB_NAME=employee_db
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=5432
-```
-
-The application loads these variables automatically using `python-dotenv`.
-
----
-
-## Database Setup
-
-Create PostgreSQL database:
-
-```sql
-CREATE DATABASE employee_db;
-```
-
-Apply migrations:
-
-```bash
-python manage.py makemigrations
-
-python manage.py migrate
-```
-
-Create superuser:
-
-```bash
-python manage.py createsuperuser
-```
-
----
-
-## Seed Sample Data
-
-Populate the database with sample departments, employees, projects, and tasks.
-
-```bash
-python scripts/seed_data.py
-```
-
-Generated Data:
-
-* 6 Departments
-* 200 Employees
-* 50 Projects
-* 1000 Tasks
-* Employee Project Mappings
-
----
-
-## Run Development Server
-
-```bash
-python manage.py runserver
-```
-
-Server:
-
-```text
-http://127.0.0.1:8000/
-```
-
-Admin Panel:
-
-```text
-http://127.0.0.1:8000/admin/
-```
-
----
-
-## API Endpoints
-
-### Departments
-
-```http
-GET    /api/departments/
-POST   /api/departments/
-```
-
-### Employees
-
-```http
-GET    /api/employees/
-POST   /api/employees/
-
-GET    /api/employees/high_salary/
-GET    /api/employees/top_performers/
-GET    /api/employees/salary_stats/
-```
-
-### Projects
-
-```http
-GET    /api/projects/
-
-GET    /api/projects/active_projects/
-
-GET    /api/projects/project_summary/
-```
-
-### Tasks
-
-```http
-GET    /api/tasks/
-
-GET    /api/tasks/pending_tasks/
-
-GET    /api/tasks/incomplete_tasks/
-```
-
----
-
-## Running Tests
 
 Run all tests:
 
@@ -274,14 +186,14 @@ python -m pytest -v
 Example:
 
 ```text
-6 passed in 2.10s
+6 passed
 ```
 
 ---
 
 ## Coverage Report
 
-Run coverage:
+Generate coverage report:
 
 ```bash
 python -m pytest --cov=employees
@@ -299,27 +211,159 @@ Open:
 htmlcov/index.html
 ```
 
-in your browser.
+---
+
+## FactoryBoy Support
+
+FactoryBoy is used to generate realistic test data.
+
+Example:
+
+```python
+employee = EmployeeFactory()
+
+department = DepartmentFactory()
+```
+
+Benefits:
+
+* Cleaner Tests
+* Reusable Test Data
+* Faster Test Development
 
 ---
 
-## ORM Examples
+## Environment Variables
 
-Location:
+Create a `.env` file:
 
-```text
-employees/orm_examples/
+```env
+DB_NAME=employee_db
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
 ```
 
-Includes examples for:
+---
 
-* Basic Queries
-* Advanced Queries
-* PostgreSQL Queries
-* QuerySet Helpers
-* Bulk Operations
-* Window Functions
-* Interview Questions
+## Installation
+
+Clone Repository:
+
+```bash
+git clone https://github.com/Sankar26-py/employee-management-system.git
+
+cd employee-management-system
+```
+
+Create Virtual Environment:
+
+```bash
+python -m venv env
+
+env\Scripts\activate
+```
+
+Install Dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Apply Migrations:
+
+```bash
+python manage.py makemigrations
+
+python manage.py migrate
+```
+
+Create Superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+Load Sample Data:
+
+```bash
+python scripts/seed_data.py
+```
+
+Run Server:
+
+```bash
+python manage.py runserver
+```
+
+---
+
+## API Endpoints
+
+### Employees
+
+```http
+GET     /api/employees/
+POST    /api/employees/
+
+GET     /api/employees/high_salary/
+GET     /api/employees/salary_stats/
+GET     /api/employees/top_performers/
+```
+
+### Departments
+
+```http
+GET     /api/departments/
+POST    /api/departments/
+```
+
+### Projects
+
+```http
+GET     /api/projects/
+GET     /api/projects/active_projects/
+GET     /api/projects/project_summary/
+```
+
+### Tasks
+
+```http
+GET     /api/tasks/
+GET     /api/tasks/pending_tasks/
+GET     /api/tasks/incomplete_tasks/
+```
+
+---
+
+## Project Structure
+
+```text
+employee-management-system/
+
+├── employees/
+│   ├── models.py
+│   ├── managers.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── orm_examples/
+│   ├── management/
+│   │   └── commands/
+│   │       └── run_orm_demo.py
+│   └── tests/
+│
+├── projects/
+├── tasks/
+├── scripts/
+│   └── seed_data.py
+│
+├── requirements.txt
+├── pytest.ini
+├── README.md
+├── .gitignore
+└── manage.py
+```
 
 ---
 
@@ -327,10 +371,10 @@ Includes examples for:
 
 * JWT Authentication
 * Redis Caching
-* Celery Background Tasks
+* Celery Integration
 * Docker Support
 * GitHub Actions CI/CD
-* Swagger / OpenAPI Documentation
+* Swagger Documentation
 
 ---
 
